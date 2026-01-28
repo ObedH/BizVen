@@ -1,8 +1,13 @@
 <html>
   <head>
-    <title>FiqhFidus</title>
+    <title>Fiqhuency</title>
   </head>
   <body>
-    <h1>FiqhFidus</h1>
+    <h1>Fiqhuency</h1>
+    <nav>
+      <a><button>Home</button></a>
+      <a><button>Forum</button></a>
+      <a><button>Scroll</button></a>
+    </nav>
   </body>
 </html>
