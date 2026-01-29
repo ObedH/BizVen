@@ -1,6 +1,7 @@
 <html>
 	<head>
 		<title>Fiqhuency Account</title>
+		<link rel="stylesheet" href="index.css">
 	</head>
 	<body>
 		<h1>Fiqhuency Account</h1>
@@ -10,12 +11,24 @@
 			<a href="../scroll"><button>Scroll</button></a>
 			<a href="../account"><button>Account</button></a>
 		</nav>
-		<form>
-			<button>Log In</button>
-			<button>Sign Up</button>
-			
-			<label>Username:</label><input type="text">
-			<label>Password:</label><input type="password">
-		</form>
+		<main class="auth">
+			<section class="auth-mode-switch">
+				<button>Log In</button>
+				<button>Sign Up</button>
+			</section>
+			<section class="auth-forms">
+				<form id="login-form">
+					<label>Username:</label><input type="text">
+					<label>Email:</label><input type="email">
+					<label>Password:</label><input type="password">
+					<button type="submit">Log In</button>
+				</form>
+				<form id="signup-form" hidden>
+					<label>Username:</label><input type="text">
+					<label>Password:</label><input type="password">
+					<button type="submit">Continue</button>
+				</form>
+			</section>
+		</main>
 	</body>
 </html>
