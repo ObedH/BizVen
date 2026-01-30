@@ -1,8 +1,11 @@
-#login-form {
-	display: flex;
+#login-form, #signup-form {
+	display: none;
 	flex-direction: column;
 	gap: 1rem;
 	width: 50%;
+}
+#login-form.show, #signup-form.show {
+	display: flex;
 }
 #login-form label,
 #login-form input {
