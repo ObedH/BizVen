@@ -2,35 +2,37 @@
 	<head>
 		<title>Fiqhuency Account</title>
 		<link rel="stylesheet" href="index.css">
+		<link rel="stylesheet" href="/style.css">
 		<script src="switch.js"></script>
 	</head>
 	<body>
 		<h1>Fiqhuency Account</h1>
-		<nav>
+		<nav id="main-navbar">
 			<a href="../"><button>Home</button></a>
 			<a href="../forum/"><button>Forum</button></a>
 			<a href="../scroll/"><button>Scroll</button></a>
 			<a href="../account/"><button>Account</button></a>
 		</nav>
-		<main class="auth">
-			<section class="auth-mode-switch">
-				<button id="login-switch">Log In</button>
-				<button id="signup-switch">Sign Up</button>
-			</section>
-			<section class="auth-forms">
-				<form id="login-form", "show">
-					<label>Username:</label><input type="text">
-					<label>Password:</label><input type="password">
-					<button type="submit">Log In</button>
-				</form>
-				<form id="signup-form" hidden>
-					<div class="step" data-step="1">
+		<main>
+			<section class="auth-card">
+				<h2>Authentication</h2>
+				<section class="auth-mode-switch">
+					<button id="login-switch">Log In</button>
+					<button id="signup-switch">Sign Up</button>
+				</section>
+				<section class="auth-forms">
+					<form id="login-form" class="show">
+						<label>Username:</label><input type="text">
+						<label>Password:</label><input type="password">
+						<button type="submit">Log In</button>
+					</form>
+					<form id="signup-form">
 						<label>Username:</label><input type="text">
 						<label>Email:</label><input type="email">
 						<label>Password:</label><input type="password">
 						<button type="submit">Continue (Step 2)</button>
-					</div>
-				</form>
+					</form>
+				</section>
 			</section>
 		</main>
 	</body>
