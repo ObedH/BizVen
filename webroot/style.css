@@ -40,8 +40,13 @@ p{
 	justify-content: space-evenly;
 	gap: 0 1rem;
 	height: 50px;
+	transition: background-color 0.3s ease;
+}
+#main-navbar a:hover{
+	transfrom: scale(1.1);
 }
 #main-navbar a, #main-navbar button {
 	width: 100%;
 	height: 100%;
 }
+
