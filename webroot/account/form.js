@@ -5,3 +5,16 @@ function nextStep(e) {
     stepNumber ++;
     document.getElementById("step-" + stepNumber).hidden = false;
 }
+
+function handleRoleSelection() {
+    // Get the selected role
+    const selectedRole = document.querySelector('input[name="role"]:checked');
+    const certificationField = document.getElementById('certification-field');
+
+    // Show the certification field if "Sheikh" is selected
+    if (selectedRole && selectedRole.id === 'sheikh') {
+        certificationField.hidden = false;
+    } else {
+        certificationField.hidden = true;
+    }
+}
