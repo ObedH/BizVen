@@ -30,8 +30,9 @@ p{
   color: black;
   font-family: "Roboto", sans-serif;
 }
-button {
+#main-navbar button {
 	background-color: #69ab4d;
+	border-radius: 8px;
 }
 #main-navbar {
 	display:flex;
