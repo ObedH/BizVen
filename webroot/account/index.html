@@ -32,7 +32,7 @@
 							<label>Username:</label><input type="text">
 							<label>Email:</label><input type="email">
 							<label>Password:</label><input type="password">
-							<button type="submit" onclick="nextStep()">Continue (Step 2)</button>
+							<button type="button" onclick="nextStep(event)">Continue (Step 2)</button>
 						</div>
 						<div id="step-2" class="step" hidden>
 							<h2>What are you signing up as?</h2>
@@ -42,7 +42,7 @@
 							<label for="sheikh">Sheikh</label>
 							<input type="radio" id="imam" name="role">
 							<label for="imam">Imam</label>
-							<button type="submit" onclick="nextStep()">Continue (Step 3)</button>
+							<button type="button" onclick="nextStep(event)">Continue (Step 3)</button>
 						</div>
 					</form>
 				</section>
