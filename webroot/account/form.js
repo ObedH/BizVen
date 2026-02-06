@@ -9,6 +9,7 @@ document.getElementById('signup-form').addEventListener('submit', function(e) {
     if (username && email && password) {
         // Hide Step 1 form
         document.getElementById('signup-form').style.display = 'none';
+        document.getElementById('
         
         // Show Step 2 form (you can add your Step 2 form elements here)
         const step2Form = document.createElement('form');
