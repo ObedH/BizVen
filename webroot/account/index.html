@@ -36,12 +36,20 @@
 						</div>
 						<div id="step-2" class="step" hidden>
 							<h2>What are you signing up as?</h2>
-							<input type="radio" id="average" name="role">
+							<input type="radio" id="average" name="role" onclick="handleRoleSelection()">
 							<label for="average">Average</label>
-							<input type="radio" id="sheikh" name="role">
+							<input type="radio" id="sheikh" name="role" onclick="handleRoleSelection()">
 							<label for="sheikh">Sheikh</label>
-							<input type="radio" id="imam" name="role">
+							<input type="radio" id="imam" name="role" onclick="handleRoleSelection()">
 							<label for="imam">Imam</label>
+
+							<div id="certification" hidden>
+								<label for="certification">Certification (If applicable):</label>
+	                            <!-- File input for certification upload -->
+	                            <input type="file" id="certification" name="certification" accept=".pdf,.jpg,.jpeg,.png,.doc,.docx">
+	                            <small>Acceptable file types: PDF, JPG, PNG, DOC, DOCX</small>
+							</div>
+							
 							<button type="button" onclick="nextStep(event)">Continue (Step 3)</button>
 						</div>
 					</form>
