@@ -27,10 +27,20 @@
 						<button type="submit">Log In</button>
 					</form>
 					<form id="signup-form">
-						<label>Username:</label><input type="text">
-						<label>Email:</label><input type="email">
-						<label>Password:</label><input type="password">
-						<button type="submit">Continue (Step 2)</button>
+						<div id="step-1" class="step">
+							<label>Username:</label><input type="text">
+							<label>Email:</label><input type="email">
+							<label>Password:</label><input type="password">
+							<button type="submit">Continue (Step 2)</button>
+						</div>
+						<div id="step-2" class="step">
+							<h2>What are you signing up as?</h2>
+							<input type="radio" id="average">
+							<label for="average">Average</label>
+							<input type="radio" id="sheikh">
+							<label for="sheikh">Sheikh</label>
+							<input type="radio" id="imam">
+							<label for="imam">Imam</label>
 					</form>
 				</section>
 			</section>
