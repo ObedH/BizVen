@@ -1,76 +1,86 @@
 <?php
-// Error handling (optional for debugging)
+// Error handling for debugging
 ini_set('display_errors', 1);
 error_reporting(E_ALL);
 
-// Check if the form was submitted via POST
-if ($_SERVER['REQUEST_METHOD'] == 'POST') {
-    
+// Make sure uploads directory exists
+$uploadDir = __DIR__ . '/uploads/';
+if (!is_dir($uploadDir)) {
+    mkdir($uploadDir, 0755, true);
+}
+
+// Database file path
+$dbFile = __DIR__ . '/mydb.sqlite';
+
+// Open or create SQLite database
+$db = new SQLite3($dbFile);
+
+// Create users table if it doesn't exist
+$db->exec("CREATE TABLE IF NOT EXISTS users (
+    id INTEGER PRIMARY KEY AUTOINCREMENT,
+    username TEXT NOT NULL,
+    email TEXT NOT NULL,
+    password TEXT NOT NULL,
+    role TEXT NOT NULL,
+    certification_file TEXT,
+    created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
+)");
+
+// Check if form was submitted
+if ($_SERVER['REQUEST_METHOD'] === 'POST') {
+
     // Get text inputs
-    $username = $_POST['username'] ?? '';
-    $email = $_POST['email'] ?? '';
+    $username = trim($_POST['username'] ?? '');
+    $email = trim($_POST['email'] ?? '');
     $password = $_POST['password'] ?? '';
     $role = $_POST['role'] ?? '';
-    
-    // File upload handling
-    if (isset($_FILES['certification']) && $_FILES['certification']['error'] == 0) {
-        $fileTmpPath = $_FILES['certification']['tmp_name'];
-        $fileName = $_FILES['certification']['name'];
-        $fileSize = $_FILES['certification']['size'];
-        $fileType = $_FILES['certification']['type'];
-        
-        // Define allowed file types
-        $allowedExtensions = ['pdf', 'jpg', 'jpeg', 'png', 'doc', 'docx'];
-        $fileExtension = pathinfo($fileName, PATHINFO_EXTENSION);
-        
-        // Check if the file has an allowed extension
-        if (in_array(strtolower($fileExtension), $allowedExtensions)) {
-            $uploadDir = 'uploads/';  // The directory where the file will be uploaded
-            $newFileName = time() . '-' . $fileName;  // Create a unique file name
-            $uploadPath = $uploadDir . $newFileName;
 
-            // Move the file to the upload directory
-            if (move_uploaded_file($fileTmpPath, $uploadPath)) {
-                echo "File has been uploaded successfully: " . $newFileName . "<br>";
-            } else {
-                echo "Error uploading the file.";
-            }
-        } else {
-            echo "Invalid file type.";
-        }
-    }
-    
     // Validate form fields
-    if (empty($username) || empty($email) || empty($password) || empty($role)) {
-        echo "Please fill in all the required fields.";
-    } else {
-        // Hash password for security
-        $hashedPassword = password_hash($password, PASSWORD_BCRYPT);
-
-        // Save the data to the database (replace with your actual DB connection logic)
-        // Example: MySQL (MySQLi)
-        $conn = new mysqli('localhost', 'username', 'password', 'database_name');
-        if ($conn->connect_error) {
-            die("Connection failed: " . $conn->connect_error);
-        }
-
-        // Prepare the SQL query
-        $stmt = $conn->prepare("INSERT INTO users (username, email, password, role, certification_file) VALUES (?, ?, ?, ?, ?)");
-        $stmt->bind_param("sssss", $username, $email, $hashedPassword, $role, $uploadPath);
-
-        // Execute the query
-        if ($stmt->execute()) {
-            echo "User registered successfully!";
-        } else {
-            echo "Error: " . $stmt->error;
-        }
-
-        // Close the connection
-        $stmt->close();
-        $conn->close();
+    if (!$username || !$email || !$password || !$role) {
+        die("Please fill in all the required fields.");
     }
+
+    // File upload handling
+    $uploadPath = null;
+    if (isset($_FILES['certification']) && $_FILES['certification']['error'] === 0) {
+        $fileTmpPath = $_FILES['certification']['tmp_name'];
+        $fileName = basename($_FILES['certification']['name']);
+        $fileExtension = strtolower(pathinfo($fileName, PATHINFO_EXTENSION));
+
+        $allowedExtensions = ['pdf', 'jpg', 'jpeg', 'png', 'doc', 'docx'];
+
+        if (!in_array($fileExtension, $allowedExtensions)) {
+            die("Invalid file type.");
+        }
+
+        // Create unique file name
+        $newFileName = time() . '-' . $fileName;
+        $uploadPath = $uploadDir . $newFileName;
+
+        if (!move_uploaded_file($fileTmpPath, $uploadPath)) {
+            die("Error uploading the file.");
+        }
+    }
+
+    // Hash password
+    $hashedPassword = password_hash($password, PASSWORD_BCRYPT);
+
+    // Prepare SQLite statement
+    $stmt = $db->prepare("INSERT INTO users (username, email, password, role, certification_file) VALUES (:username, :email, :password, :role, :certification_file)");
+    $stmt->bindValue(':username', $username, SQLITE3_TEXT);
+    $stmt->bindValue(':email', $email, SQLITE3_TEXT);
+    $stmt->bindValue(':password', $hashedPassword, SQLITE3_TEXT);
+    $stmt->bindValue(':role', $role, SQLITE3_TEXT);
+    $stmt->bindValue(':certification_file', $uploadPath ?? '', SQLITE3_TEXT);
+
+    // Execute
+    if ($stmt->execute()) {
+        echo "User registered successfully!";
+    } else {
+        echo "Error: " . $db->lastErrorMsg();
+    }
+
 } else {
-    // If not a POST request, show the form
     echo "Invalid request method.";
 }
 ?>
