@@ -4,6 +4,10 @@ function nextStep(e) {
     document.getElementById("step-" + stepNumber).hidden = true;
     stepNumber ++;
     document.getElementById("step-" + stepNumber).hidden = false;
+
+	document.querySelectorAll("#step-1 input").forEach(input => {
+		input.required = false;
+	});
 }
 
 function handleRoleSelection() {

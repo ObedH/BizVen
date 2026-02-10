@@ -3,8 +3,8 @@
 		<title>fiqhuency account</title>
 		<link rel="stylesheet" href="index.css">
 		<link rel="stylesheet" href="/style.css">
-		<script src="switch.js"></script>
-		<script src="form.js"></script>
+		<script src="switch.js" defer></script>
+		<script src="form.js" defer></script>
 	</head>
 	<body>
 		<h1>fiqhuency account</h1>
@@ -27,20 +27,20 @@
 						<label>Password:</label><input type="password">
 						<button type="submit">Log In</button>
 					</form>
-					<form id="signup-form" method="POST" enctype="multipart/form-data">
+					<form id="signup-form" method="POST" enctype="multipart/form-data" novalidate>
 						<div id="step-1" class="step">
-							<label>Username:</label><input type="text">
-							<label>Email:</label><input type="email">
-							<label>Password:</label><input type="password">
+							<label>Username:</label><input type="text" name="username" required>
+							<label>Email:</label><input type="email" name="email" required>
+							<label>Password:</label><input type="password" name="password" required>
 							<button type="button" onclick="nextStep(event)">Continue (Step 2)</button>
 						</div>
 						<div id="step-2" class="step" hidden>
 							<h2>What are you signing up as?</h2>
-							<input type="radio" id="average" name="role" onclick="handleRoleSelection()">
+							<input type="radio" id="average" name="role" value="average" onclick="handleRoleSelection()">
 							<label for="average">Average</label>
-							<input type="radio" id="sheikh" name="role" onclick="handleRoleSelection()">
+							<input type="radio" id="sheikh" name="role" value="sheikh" onclick="handleRoleSelection()">
 							<label for="sheikh">Sheikh</label>
-							<input type="radio" id="imam" name="role" onclick="handleRoleSelection()">
+							<input type="radio" id="imam" name="role" value="imam" onclick="handleRoleSelection()">
 							<label for="imam">Imam</label>
 
 							<div id="certification-field" hidden>
@@ -50,7 +50,7 @@
 	                            <small>Acceptable file types: PDF, JPG, PNG, DOC, DOCX</small>
 							</div>
 							
-							<button type="submit">Finish</button>
+							<button type="button" onclick="submitForm(event)">Finish</button>
 						</div>
 					</form>
 				</section>

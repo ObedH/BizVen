@@ -1,6 +1,7 @@
 // Form Submission Handling
-document.getElementById("signup-form").addEventListener("submit", function(event) {
+function submitForm(event) {
     event.preventDefault(); // Prevent the form from submitting traditionally
+	console.log("Form submitted");
     
     // Gather the data from the form
     const form = event.target;
@@ -29,7 +30,7 @@ document.getElementById("signup-form").addEventListener("submit", function(event
     }
 
     // Send the data to the server using Fetch API
-    fetch('signup.php', {
+    fetch('/webroot/account/signup.php', {
         method: 'POST',
         body: formData
     })
@@ -47,4 +48,4 @@ document.getElementById("signup-form").addEventListener("submit", function(event
         console.error("Error during form submission:", error);
         alert("An error occurred while submitting the form.");
     });
-});
+}
