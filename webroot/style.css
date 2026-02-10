@@ -38,6 +38,7 @@ p{
 #main-navbar button {
 	background-color: #69ab4d;
 	border-radius: 8px;
+	display: flex;
 }
 #main-navbar {
 	display:flex;
