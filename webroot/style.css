@@ -37,6 +37,7 @@ p{
 }
 #main-navbar a,
 #main-navbar button {
+	background-color: #AAFFA1;
 	width: 100%;
 	height: 100%;
 	display: flex;
@@ -56,7 +57,7 @@ p{
 }
 #main-navbar a:hover{
 	transform: scale(1.1);
-	background-color: black;
+	background-color: #445C41;
 }
 #main-navbar a, #main-navbar button {
 	width: 100%;
