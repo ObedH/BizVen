@@ -49,7 +49,7 @@ p{
 }
 #main-navbar a:hover{
 	transform: scale(1.1);
-	color: black;
+	background-color: black;
 }
 #main-navbar a, #main-navbar button {
 	width: 100%;
