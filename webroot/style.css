@@ -57,7 +57,7 @@ p{
 }
 #main-navbar a:hover{
 	transform: scale(1.1);
-	background-color: #445C41;
+	background-color: #445C41 !important;
 }
 #main-navbar a, #main-navbar button {
 	width: 100%;
