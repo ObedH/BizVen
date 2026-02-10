@@ -48,7 +48,7 @@ p{
 	transition: background-color 0.3s ease;
 }
 #main-navbar a:hover{
-	transfrom: scale(1.1);
+	transform: scale(1.1);
 }
 #main-navbar a, #main-navbar button {
 	width: 100%;
