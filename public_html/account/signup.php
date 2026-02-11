@@ -1,17 +1,16 @@
 <?php
-die("signup.php reached");
 // Error handling for debugging
 ini_set('display_errors', 1);
 error_reporting(E_ALL);
 
 // Make sure uploads directory exists
-$uploadDir = dirname(__DIR__, 2) . '/uploads/';
+$uploadDir = '/var/www/uploads/';
 if (!is_dir($uploadDir)) {
     mkdir($uploadDir, 0755, true);
 }
 
 // Database file path
-$dbFile = dirname(__DIR__, 2) . '/mydb.sqlite';
+$dbFile = '/var/www/database/mydb.sqlite';
 
 // Open or create SQLite database
 $db = new SQLite3($dbFile);

@@ -1,3 +1,11 @@
+document.addEventListener("DOMContentLoaded", () => {
+	const form = document.getElementById("signup-form");
+	form.addEventListener("submit", submitForm);
+});
+
+
+
+
 // Form Submission Handling
 function submitForm(event) {
     event.preventDefault(); // Prevent the form from submitting traditionally
@@ -30,7 +38,7 @@ function submitForm(event) {
     }
 
     // Send the data to the server using Fetch API
-    fetch('/webroot/account/signup.php', {
+    fetch('/account/signup.php', {
         method: 'POST',
         body: formData
     })
@@ -39,7 +47,7 @@ function submitForm(event) {
         // Show response from PHP script
         if (data.includes("User registered successfully")) {
             alert("Registration successful!");
-            window.location.href = "/login"; // Redirect to the login page or home page
+            window.location.href = "./"; // Redirect to the login page or home page
         } else {
             alert("Error: " + data); // Show error if something went wrong
         }
