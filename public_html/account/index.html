@@ -6,6 +6,7 @@
 		<script src="switch.js" defer></script>
 		<script src="form.js" defer></script>
 		<script src="signup.js" defer></script>
+		<script src="login.js" defer></script>
 	</head>
 	<body>
 		<h1>fiqhuency account</h1>
@@ -23,9 +24,9 @@
 					<button id="signup-switch">Sign Up</button>
 				</section>
 				<section class="auth-forms">
-					<form id="login-form" class="show">
-						<label>Username:</label><input type="text">
-						<label>Password:</label><input type="password">
+					<form id="login-form" class="show" novalidate>
+						<label>Username:</label><input type="text" name="username" required>
+						<label>Password:</label><input type="password" name="password" required>
 						<button type="submit">Log In</button>
 					</form>
 					<form id="signup-form" method="POST" enctype="multipart/form-data" novalidate>

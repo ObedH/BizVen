@@ -15,17 +15,6 @@ $dbFile = '/var/www/database/mydb.sqlite';
 // Open or create SQLite database
 $db = new SQLite3($dbFile);
 
-// Create users table if it doesn't exist
-$db->exec("CREATE TABLE IF NOT EXISTS users (
-    id INTEGER PRIMARY KEY AUTOINCREMENT,
-    username TEXT NOT NULL,
-    email TEXT NOT NULL,
-    password TEXT NOT NULL,
-    role TEXT NOT NULL,
-    certification_file TEXT,
-    created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
-)");
-
 // Check if form was submitted
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 
@@ -37,7 +26,8 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 
     // Validate form fields
     if (!$username || !$email || !$password || !$role) {
-        die("Please fill in all the required fields.");
+        echo json_encode(['status' => 'error', 'message' => 'Please fill in all the required fields.']);
+        exit;
     }
 
     // File upload handling
@@ -48,17 +38,28 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         $fileExtension = strtolower(pathinfo($fileName, PATHINFO_EXTENSION));
 
         $allowedExtensions = ['pdf', 'jpg', 'jpeg', 'png', 'doc', 'docx'];
+        $maxFileSize = 5 * 1024 * 1024; // Max file size: 5MB
 
-        if (!in_array($fileExtension, $allowedExtensions)) {
-            die("Invalid file type.");
+        // Check file size
+        if ($_FILES['certification']['size'] > $maxFileSize) {
+            echo json_encode(['status' => 'error', 'message' => 'File is too large. Maximum allowed size is 5MB.']);
+            exit;
         }
 
-        // Create unique file name
-        $newFileName = time() . '-' . $fileName;
+        // Check allowed extensions
+        if (!in_array($fileExtension, $allowedExtensions)) {
+            echo json_encode(['status' => 'error', 'message' => 'Invalid file type.']);
+            exit;
+        }
+
+        // Sanitize file name to remove any unsafe characters
+        $newFileName = time() . '-' . preg_replace("/[^a-zA-Z0-9.-]/", "_", $fileName);
         $uploadPath = $uploadDir . $newFileName;
 
+        // Move the uploaded file
         if (!move_uploaded_file($fileTmpPath, $uploadPath)) {
-            die("Error uploading the file.");
+            echo json_encode(['status' => 'error', 'message' => 'Error uploading the file.']);
+            exit;
         }
     }
 
@@ -73,14 +74,14 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     $stmt->bindValue(':role', $role, SQLITE3_TEXT);
     $stmt->bindValue(':certification_file', $uploadPath ?? '', SQLITE3_TEXT);
 
-    // Execute
+    // Execute the query
     if ($stmt->execute()) {
-        echo "User registered successfully!";
+        echo json_encode(['status' => 'success', 'message' => 'User registered successfully!']);
     } else {
-        echo "Error: " . $db->lastErrorMsg();
+        echo json_encode(['status' => 'error', 'message' => 'Error: ' . $db->lastErrorMsg()]);
     }
 
 } else {
-    echo "Invalid request method.";
+    echo json_encode(['status' => 'error', 'message' => 'Invalid request method.']);
 }
 ?>
