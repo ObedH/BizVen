@@ -48,6 +48,7 @@ p{
 }
 
 #main-navbar {
+	background-color: #3f497b;
 	display:flex;
 	align-items: center;
 	justify-content: space-evenly;
@@ -55,7 +56,8 @@ p{
 	height: 50px;
 	transition: background-color 0.3s ease;
 }
-#main-navbar a:hover{
+#main-navbar a:hover,
+#main-navbar button:hover{
 	transform: scale(1.1);
 	background-color: black !important;
 }
