@@ -59,7 +59,7 @@ p{
 #main-navbar a:hover,
 #main-navbar button:hover{
 	transform: scale(1.1);
-	background-color: black !important;
+	background-color: #6EAB68 !important;
 }
 #main-navbar a, #main-navbar button {
 	width: 100%;
