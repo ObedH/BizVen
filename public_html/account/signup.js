@@ -1,13 +1,13 @@
 document.addEventListener("DOMContentLoaded", () => {
 	const form = document.getElementById("signup-form");
-	form.addEventListener("submit", submitForm);
+	form.addEventListener("submit", submitSignupForm);
 });
 
 
 
 
 // Form Submission Handling
-function submitForm(event) {
+function submitSignupForm(event) {
     event.preventDefault(); // Prevent the form from submitting traditionally
 	console.log("Form submitted");
     

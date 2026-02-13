@@ -1,10 +1,10 @@
 document.addEventListener("DOMContentLoaded", () => {
     const form = document.getElementById("login-form");
-    form.addEventListener("submit", submitForm);
+    form.addEventListener("submit", submitLoginForm);
 });
 
 // Form Submission Handling
-function submitForm(event) {
+function submitLoginForm(event) {
     event.preventDefault(); // Prevent the form from submitting traditionally
     console.log("Login form submitted");
 
@@ -29,14 +29,14 @@ function submitForm(event) {
         method: 'POST',
         body: formData
     })
-    .then(response => response.text())  // Parse response as text (could be JSON)
+    .then(response => response.json())  // Parse response as text (could be JSON)
     .then(data => {
         // Show response from PHP script
-        if (data.includes("Login successful")) {
+        if (data.status = "Login successful") {
             alert("Login successful!");
-            window.location.href = "/dashboard"; // Redirect to the user's dashboard or homepage
+            window.location.href = "./"; // Redirect to the user's dashboard or homepage
         } else {
-            alert("Error: " + data); // Show error if something went wrong
+            alert("Error: " + data.message); // Show error if something went wrong
         }
     })
     .catch(error => {

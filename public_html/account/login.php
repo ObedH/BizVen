@@ -1,24 +1,30 @@
 <?php
+session_start();
 require_once 'db.php';
 
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 
-    $email = $_POST['email'];
+    $username = $_POST['username'];
     $password = $_POST['password'];
 
     $stmt = $db->prepare("SELECT * FROM users WHERE email = :email");
-    $stmt->bindValue(':email', $email, SQLITE3_TEXT);
+    $stmt->bindValue(':username', $username, SQLITE3_TEXT);
     $result = $stmt->execute();
     $user = $result->fetchArray(SQLITE3_ASSOC);
 
     if ($user && password_verify($password, $user['password'])) {
-        session_start();
         $_SESSION['user_id'] = $user['id'];
         $_SESSION['username'] = $user['username'];
 
-        echo "Login successful!";
+	echo json_encode([
+		'status' => 'success',
+		'message' => 'Login successful!'
+	]);
     } else {
-        echo "Invalid credentials.";
+	    echo json_encode([
+		    'status' => 'error',
+		    'message' => 'Invalid credentials.'
+	    ]);
     }
 }
 ?>
